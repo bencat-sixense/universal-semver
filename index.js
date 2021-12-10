@@ -121,7 +121,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
   try {
     // const current = pkg.version.toString();
     // get version from latest git tag instead of package.json file
-    const current = runInWorkspace('git', ['describe', '--tags --abbrev=0']);
+    const current = runInWorkspace('git', ['describe', '--tags', '--abbrev=0']);
     // set git user
     await runInWorkspace('git', ['config', 'user.name', `"${process.env.GITHUB_USER || 'Automated Version Bump'}"`]);
     await runInWorkspace('git', [
