@@ -142,9 +142,10 @@ const workspace = process.env.GITHUB_WORKSPACE;
       currentBranch = process.env['INPUT_TARGET-BRANCH'];
     }
     console.log('currentBranch:', currentBranch);
+    console.log('currentvERSION:', version);
     // do it in the current checked out github branch (DETACHED HEAD)
     // important for further usage of the package.json version
-    await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
+    // await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current:', current, '/', 'version:', version);
     let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
     newVersion = `${tagPrefix}${newVersion}`;
