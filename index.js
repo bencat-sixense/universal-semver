@@ -142,13 +142,15 @@ const workspace = process.env.GITHUB_WORKSPACE;
       currentBranch = process.env['INPUT_TARGET-BRANCH'];
     }
     console.log('currentBranch:', currentBranch);
-    console.log('currentvERSION:', version);
+    console.log('currentVersion:', version);
     // do it in the current checked out github branch (DETACHED HEAD)
     // important for further usage of the package.json version
     // await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current:', current, '/', 'version:', version);
-    let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
+    // let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
+    let newVersion = execSync(`./generate-semver.sh -o none`).toString().trim().replace(/^v/, '');
     newVersion = `${tagPrefix}${newVersion}`;
+    console.log('newVersion:', newVersion);
     if (process.env['INPUT_SKIP-COMMIT'] !== 'true') {
       await runInWorkspace('git', ['commit', '-a', '-m', commitMessage.replace(/{{version}}/g, newVersion)]);
     }
@@ -159,9 +161,12 @@ const workspace = process.env.GITHUB_WORKSPACE;
       await runInWorkspace('git', ['fetch']);
     }
     await runInWorkspace('git', ['checkout', currentBranch]);
-    await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
+    // await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current:', current, '/', 'version:', version);
-    newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
+    // newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
+
+    newVersion = execSync(`./generate-semver.sh -l text -f ./artifacts/version.txt  -o none`).toString().trim().replace(/^v/, '');
+
     newVersion = `${tagPrefix}${newVersion}`;
     console.log(`::set-output name=newTag::${newVersion}`);
     try {
