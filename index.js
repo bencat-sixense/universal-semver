@@ -148,7 +148,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
     // await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current:', current, '/', 'version:', version);
     // let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
-    let newVersion = execFile('/home/runner/work/_actions/bencat-sixense/universal-semver/master/generate-semver.sh', ['-o none']).toString().trim().replace(/^v/, '');
+    let newVersion = execFile('./generate-semver.sh', ['-o none']).toString().trim().replace(/^v/, '');
     newVersion = `${tagPrefix}${newVersion}`;
     console.log('newVersion:', newVersion);
     if (process.env['INPUT_SKIP-COMMIT'] !== 'true') {
@@ -165,8 +165,8 @@ const workspace = process.env.GITHUB_WORKSPACE;
     console.log('current:', current, '/', 'version:', version);
     // newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
 
-    newVersion = execSync(`./generate-semver.sh -l text -f ./artifacts/version.txt  -o none`).toString().trim().replace(/^v/, '');
-
+    newVersion = execFile('./generate-semver.sh', ['-l text -f ./artifacts/version.txt -o none']).toString().trim().replace(/^v/, '');
+    console.log('newVersion:', newVersion);
     newVersion = `${tagPrefix}${newVersion}`;
     console.log(`::set-output name=newTag::${newVersion}`);
     try {
