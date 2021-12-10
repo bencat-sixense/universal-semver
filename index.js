@@ -1,5 +1,5 @@
 // test
-const { execSync, spawn } = require('child_process');
+const { execSync, spawn, execFile } = require('child_process');
 const { existsSync } = require('fs');
 const { EOL } = require('os');
 const path = require('path');
@@ -148,7 +148,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
     // await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current:', current, '/', 'version:', version);
     // let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
-    let newVersion = execSync(`/bin/bash ./generate-semver.sh -o none`).toString().trim().replace(/^v/, '');
+    let newVersion = execFile('./generate-semver.sh', ['-o none']).toString().trim().replace(/^v/, '');
     newVersion = `${tagPrefix}${newVersion}`;
     console.log('newVersion:', newVersion);
     if (process.env['INPUT_SKIP-COMMIT'] !== 'true') {
