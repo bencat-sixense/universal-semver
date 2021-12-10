@@ -148,7 +148,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
     // await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current:', current, '/', 'version:', version);
     // let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
-    let newVersion = execSync(`./generate-semver.sh -o none`).toString().trim().replace(/^v/, '');
+    let newVersion = execSync(`generate-semver.sh -o none`).toString().trim().replace(/^v/, '');
     newVersion = `${tagPrefix}${newVersion}`;
     console.log('newVersion:', newVersion);
     if (process.env['INPUT_SKIP-COMMIT'] !== 'true') {
