@@ -13,7 +13,7 @@ if (process.env.PACKAGEJSON_DIR) {
 const workspace = process.env.GITHUB_WORKSPACE;
 
 (async () => {
-  const pkg = getPackageJson();
+  // const pkg = getPackageJson();
   const event = process.env.GITHUB_EVENT_PATH ? require(process.env.GITHUB_EVENT_PATH) : {};
 
   if (!event.commits) {
