@@ -1,8 +1,15 @@
-## gh-action-bump-version
+## universal-semver
 
-GitHub Action for automated npm version bump.
+BASED ON : phips28/gh-action-bump-version
 
-This Action bumps the version in package.json and pushes it back to the repo.
+GitHub Action to generate and tag next semver, from latest tag.
+
+---
+
+This Action generate and tag the next semversion into git repository.
+
+## ORIGINAL README
+
 It is meant to be used on every successful merge to master but
 you'll need to configured that workflow yourself. You can look to the
 [`.github/workflows/push.yml`](./.github/workflows/push.yml) file in this project as an example.
@@ -36,7 +43,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ### Usage:
 
 
-#### **wording:** 
+#### **wording:**
 Customize the messages that trigger the version bump. It must be a string, case sensitive, coma separated  (optional). Example:
 ```yaml
 - name:  'Automated Version Bump'
